@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block block_title %}
+    Home
+{% endblock block_title %}
+
+
+{% block body_block %}
+    <div class="row">
+        <h3><b>শীর্ষ সংবাদ</b></h3>
+        <hr>
+        {% for key,news in top_news.items %}
+        {% for news_top in news %}
+            <div class="col-sm-4" style=" border-right: 1px solid #6C758E;">
+                <div class="card">
+                    <img src="/media/{{ news_top.content_image }}" class="card-img-top img-fluid " alt="{{ news_top.Title }}" style="display: block; width: 100%; height: 200px;">
+                    <div class="card-body">
+                        <a href="{% url 'newspaper_project:news_details' pk=news_top.pk table=news_top|model_name %}" style="text-decoration:none;color:black;"><h5 class="card-title">{{ news_top.Title }}</h5></a>
+                        <p class="card-text"><small class="text-muted">{{ news_top.publish_time }}</small></p>
+                        <p class="card-text">{{ news_top.Content|range_filter }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% endfor %}
+    </div> 
+
+   
+    <div class="row mt-4">
+         <hr>
+        <h4><b>বাংলাদেশ</b></h4>
+        <hr>
+        {% for news in bangladesh_news %}
+            <div class="col-sm-4" style=" border-right: 1px solid #6C758E;">
+                <div class="card">
+                    <img src="/media/{{ news.content_image }}" class="card-img-top img-fluid" alt="{{ news.Title }}" style="display: block; width: 100%; height: 200px;">
+                    <div class="card-body">
+                        <a href="{% url 'newspaper_project:news_details' pk=news.pk table='Bangladesh' %}" style="text-decoration:none;color:black;"><h5 class="card-title">{{ news.Title }}</h5></a>
+                        <p class="card-text"><small class="text-muted">{{ news.publish_time }}</small></p>
+                        <p class="card-text">{{ news.Content|range_filter }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    
+    <div class="row mt-4">
+        <hr>
+        <h4><b>আন্তর্জাতিক</b></h4>
+        <hr>
+        {% for news in international_news %}
+            <div class="col-sm-4" style=" border-right: 1px solid #6C758E;">
+                <div class="card">
+                    <img src="/media/{{ news.content_image }}" class="card-img-top img-thumbnail" alt="{{ news.Title }}" style="display: block; width: 100%; height: 200px;">
+                    <div class="card-body">
+                        <a href="{% url 'newspaper_project:news_details' pk=news.pk table='International' %}" style="text-decoration:none;color:black;"><h5 class="card-title">{{ news.Title }}</h5></a>
+                        <p class="card-text"><small class="text-muted">{{ news.publish_time }}</small></p>
+                        <p class="card-text">{{ news.Content|range_filter }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <hr>
+    <h4><b>বাণিজ্য</b></h4>
+    <div class="row">
+        <hr>
+        {% for news in trade_news %}
+            <div class="col-sm-4" style=" border-right: 1px solid #6C758E;">
+                <div class="card">
+                    <img src="/media/{{ news.content_image }}" class="card-img-top img-thumbnail" alt="{{ news.Title }}" style="display: block; width: 100%; height: 200px;">
+                    <div class="card-body">
+                        <a href="{% url 'newspaper_project:news_details' pk=news.pk table='Trade' %}" style="text-decoration:none;color:black;"><h5 class="card-title">{{ news.Title }}</h5></a>
+                        <p class="card-text"><small class="text-muted">{{ news.publish_time }}</small></p>
+                        <p class="card-text">{{ news.Content|range_filter }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <hr>
+    <h4><b>বিনোদন</b></h4>
+    <div class="row">
+        <hr>
+        {% for news in entertainment_news %}
+            <div class="col-sm-4" style=" border-right: 1px solid #6C758E;">
+                <div class="card">
+                    <img src="/media/{{ news.content_image }}" class="card-img-top img-thumbnail" alt="{{ news.Title }}" style="display: block; width: 100%; height: 200px;">
+                    <div class="card-body">
+                        <a href="{% url 'newspaper_project:news_details' pk=news.pk table='Entertainment' %}" style="text-decoration:none;color:black;"><h5 class="card-title">{{ news.Title }}</h5></a>
+                        <p class="card-text"><small class="text-muted">{{ news.publish_time }}</small></p>
+                        <p class="card-text">{{ news.Content|range_filter }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <hr>
+    <h4><b>খেলাধুলা</b></h4>
+    <div class="row">
+        <hr>
+        {% for news in sports_news %}
+            <div class="col-sm-4" style=" border-right: 1px solid #6C758E;">
+                <div class="card">
+                    <img src="/media/{{ news.content_image }}" class="card-img-top img-thumbnail" alt="{{ news.Title }}" style="display: block; width: 100%; height: 200px;">
+                    <div class="card-body">
+                        <a href="{% url 'newspaper_project:news_details' pk=news.pk table='Sports' %}" style="text-decoration:none;color:black;"><h5 class="card-title">{{ news.Title }}</h5></a>
+                        <p class="card-text"><small class="text-muted">{{ news.publish_time }}</small></p>
+                        <p class="card-text">{{ news.Content|range_filter }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+
+{% endblock body_block %}

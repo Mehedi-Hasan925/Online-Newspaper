@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block block_title %}
+    Bangladesh
+{% endblock block_title %}
+
+
+{% block body_block %}
+    <h3 class="text-center"><b>{{headline}}</b></h3>
+    <hr>
+    {% for newses in page_obj %}
+        <div class="card mb-3 mx-auto" style="max-width: 840px;">
+            <div class="row g-0 mx-auto">
+                <div class="col-md-4">
+                    <img src="/media/{{ newses.content_image }}" alt="{{newses.Title}}" class="img-fluid" style="display: block; width: 100%; height: 200px;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <a href="{% url 'newspaper_project:news_details' pk=newses.pk table=newses|model_name %}" style="text-decoration:none;color:black;"><h5 class="card-title">{{newses.Title}}</h5></a>
+                        <p class="card-text"><small class="text-muted">{{ newses.publish_time }}</small></p>
+                    </div>
+                </div>
+            </div>
+      </div>
+    {% endfor %}
+
+     <!--Pagination-->
+     <div class="container p-4">
+        <div class="pagination justify-content-center">
+            <span class="step-links">
+              {% if page_obj.has_previous %}
+                  <a href="?page=1">&laquo; first</a>
+                  <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+              {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+              {% if page_obj.has_next %}
+                  <a href="?page={{ movies.next_page_number }}">next</a>
+                  <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+              {% endif %}
+            </span>
+            </div>
+        </div>
+      <!--end of Pagination-->
+{% endblock body_block %}

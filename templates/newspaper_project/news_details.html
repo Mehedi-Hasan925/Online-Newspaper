@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block block_title %}
+    Home
+{% endblock block_title %}
+
+
+{% block body_block %}
+    <div class="row">
+        <div class="col-sm-8 mx-auto">
+            <h3>{{ news.Title }}</h3>
+            <p class="card-text"><small class="text-muted">{{ news.publish_time }}</small></p>
+            <img src="/media/{{ news.content_image }}" alt="" class="img-fluid">
+            <hr>
+            <p>{{ news.Content|linebreaks }}</p>
+        </div>
+    </div>
+    <hr>
+    <h5>এ সম্পর্কিত আরও পড়ুন</h5>
+    <hr>
+
+    {% for rel_news in related_news %}
+            <div class="card mb-3 mx-auto" style="max-width: 740px;">
+                <div class="row g-0 mx-auto">
+                    <div class="col-sm-4">
+                    <img src="/media/{{ rel_news.content_image }}" alt="{{rel_news.Title}}" class="img-fluid">
+                    </div>
+                    <div class="col-md-8">
+                    <div class="card-body">
+                        <a href="{% url 'newspaper_project:news_details' pk=rel_news.pk table=rel_news|model_name %}" style="text-decoration:none;color:black;"><h5 class="card-title">{{rel_news.Title}}</h5></a>
+                        <p class="card-text"><small class="text-muted">{{ rel_news.publish_time }}</small></p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+    
+{% endblock body_block %}
