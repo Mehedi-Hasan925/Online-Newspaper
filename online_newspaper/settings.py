@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -71,14 +72,10 @@ WSGI_APPLICATION = 'online_newspaper.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'swadeshbarta',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-}
+   'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
@@ -122,6 +119,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     static_dir,
 ]
+STATIC_ROOT = static_dir
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -132,3 +130,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = media_dir
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
